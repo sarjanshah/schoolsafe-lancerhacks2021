@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<body>
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script src = "https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body style="background-color:#1aafc3">
+
+    <script type = "text/javascript">
+        window.addEventListener("scroll", function(){
+            var header = document.querySelector("header");
+            header.classList.toggle("sticky", window.scrollY > 0);
+        })
+    </script>
+    </body>
+
+
+	
+    
+    </body>
+</html>
+
+   
+   
+   
+    <div id="particles-js" class="particleclass"></div>
+
+    </div>
+    <script src="../particles.js"></script>
+    <script src="static/js/app.js"></script>
+    <script src="static/js/lib/stats.js"></script>
+    <script>
+        var count_particles, stats, update;
+        stats = new Stats;
+        stats.setMode(0);
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.width = '100%';
+        stats.domElement.style.height = '100%';
+        stats.domElement.style.top = '0px';
+        stats.domElement.style.display = 'none'
+        document.body.appendChild(stats.domElement);
+        count_particles = document.querySelector('.js-count-particles');
+        update = function() {
+        stats.begin();
+        stats.end();
+        if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+            count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+        }
+        requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+<!-- <button onclick="getLocation()">Try It</button> -->
+
+
+<p id="demo"></p>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="982921167824-6tgi8pmaoetpf8qms20drkod0oqal5a8.apps.googleusercontent.com">
+<center><div class="g-signin2" data-onsuccess="onSignIn"></div>
+<table id="myTable" style = "border: 1px solid black;  border-collapse: collapse;"></table>
+<h1 id= "count"></h1>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script> 
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAKltM31C0xWyGFKbGlsMYETids03WH9nQ",
+    authDomain: "schoolsafe-fe09b.firebaseapp.com",
+    databaseURL: "https://schoolsafe-fe09b-default-rtdb.firebaseio.com",
+    projectId: "schoolsafe-fe09b",  
+    storageBucket: "schoolsafe-fe09b.appspot.com",
+    messagingSenderId: "982921167824",
+    appId: "1:982921167824:web:f033869850cb2303a2afd5",
+    measurementId: "G-PMFVZSKB0Y"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+    var signedin = false;
+    var name;
+    var curx;
+    var cury;
+    async function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        name = profile.getName();
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        signedin = true;
+        getLocation();
+        document.getElementById("count").value = "a";
+    }
+    var x = document.getElementById("demo");
+    async function getLocation() {
+        if (navigator.geolocation) {
+            await navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }   
+    async function showPosition(position) {
+        curx = position.coords.latitude;
+        cury = position.coords.longitude;
+        await firebase.database().ref(name).set({
+            x: position.coords.latitude,
+            y: position.coords.longitude,
+            health: "negative"
+        });  
+        run();
+        // console.log("GOT HERE BOIS")
+    }
+    var count = 0;
+
+    function distance(x, y){
+        console.log(curx, cury);
+        var d = Math.sqrt((curx - x) * (curx - x) + (cury - y) * (cury - y));
+        return d;
+    }
+
+    async function run(){
+        console.log("GOT HERE RUN")
+        var table = document.getElementById("myTable");
+        await firebase.database().ref().once('value',   function(snapshot) {
+            console.log(snapshot);
+            snapshot.forEach(function(childSnapshot) {
+                lon = childSnapshot.key;
+                var data = childSnapshot.val();
+                var xget = data["x"];
+                var yget = data["y"];
+                var health = data["health"];
+                count = count + 1;
+                var row = table.insertRow(0);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                cell1.innerHTML = distance(xget, yget);
+                cell2.innerHTML = lon;
+                cell3.innerHTML = health;
+            });
+        });
+    }
+</script>
+
+</body>
+
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script src = "https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body style="background-color:#1aafc3">
+
+    <script type = "text/javascript">
+        window.addEventListener("scroll", function(){
+            var header = document.querySelector("header");
+            header.classList.toggle("sticky", window.scrollY > 0);
+        })
+    </script>
+    </body>
+
+
+<html lang="en">
+<div class="indexbuttons">
+<br></br>
+<center><h2>Welcome to the School Safe Website!</h2>
+<br><br/>
+<center><p style="top: 3px;">We will make sure that your reopened school stays safe from COVID-19! </p>
+<p>Click the button to get your coordinates.</p>
+<center><p style="top: 3px;">Make sure you read How it Works before trying! </p>
+
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+
+</script>
+	
+    
+    </body>
+</html>
+
+</html>
+	<head>
+		<style>
+			/* CSS comes here */
+			.login {
+    			color: white;
+                z-index: 0;
+                padding: 10px 30px;
+                border-radius: 5px;
+                background: #FA4659;
+                background: -webkit-linear-gradient(to right,#FA4659,#FA4659);
+                background: linear-gradient(to right,#FA4659 ,#FA4659);
+                box-shadow: 0 10px 10px -2px rgba(0,0,0,.25);
+                cursor:pointer;
+                border: 0 !important;
+                margin-top:-50px
+            
+			}
+		</style>
+	</head>
+	<body>
+		<center><button class="login" onclick="window.location.href='/login'">Login!</button></center>
+
+	</body>
+    </div>
+</html>
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    <div id="particles-js" class="particleclass"></div>
+
+    </div>
+    <script src="../particles.js"></script>
+    <script src="static/js/app.js"></script>
+    <script src="static/js/lib/stats.js"></script>
+    <script>
+        var count_particles, stats, update;
+        stats = new Stats;
+        stats.setMode(0);
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.width = '100%';
+        stats.domElement.style.height = '100%';
+        stats.domElement.style.top = '0px';
+        stats.domElement.style.display = 'none'
+        document.body.appendChild(stats.domElement);
+        count_particles = document.querySelector('.js-count-particles');
+        update = function() {
+        stats.begin();
+        stats.end();
+        if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+            count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+        }
+        requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

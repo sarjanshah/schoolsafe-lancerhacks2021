@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script src = "https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body style="background-color:#1aafc3">
+
+    <script type = "text/javascript">
+        window.addEventListener("scroll", function(){
+            var header = document.querySelector("header");
+            header.classList.toggle("sticky", window.scrollY > 0);
+        })
+    </script>
+    </body>
+
+
+	
+    
+    </body>
+</html>
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    <div id="particles-js" class="particleclass"></div>
+
+    </div>
+    <script src="../particles.js"></script>
+    <script src="static/js/app.js"></script>
+    <script src="static/js/lib/stats.js"></script>
+    <script>
+        var count_particles, stats, update;
+        stats = new Stats;
+        stats.setMode(0);
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.width = '100%';
+        stats.domElement.style.height = '100%';
+        stats.domElement.style.top = '0px';
+        stats.domElement.style.display = 'none'
+        document.body.appendChild(stats.domElement);
+        count_particles = document.querySelector('.js-count-particles');
+        update = function() {
+        stats.begin();
+        stats.end();
+        if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+            count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+        }
+        requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
+    </script>
+</body>
+</html>
+<br>
+<center><h1 style="color:white">How it works</h1>
+
+
+<p>The map and location tracker both use javaScript with google map api to found your location. Won't work right away, you have to first open "chrome://flags/#unsafely-treat-insecure-origin-as-secure", enable it, and add our site to the text box to whitelist it. Then a little relaunch button should show up, so click that. Then finally go to our site and allow location. Done :)</p>
+<br>
+<br>
+<center><p>chrome://flags/#unsafely-treat-insecure-origin-as-secure <- Allow there :)</p>
+
+
+</html>
+</html>
+	<head>
+		<style>
+			/* CSS comes here */
+			.login {
+    			color: white;
+                z-index: 0;
+                padding: 10px 30px;
+                border-radius: 5px;
+                background: #FA4659;
+                background: -webkit-linear-gradient(to right,#FA4659,#FA4659);
+                background: linear-gradient(to right,#FA4659 ,#FA4659);
+                box-shadow: 0 10px 10px -2px rgba(0,0,0,.25);
+                cursor:pointer;
+                border: 0 !important;
+                margin-top:50px
+            
+			}
+		</style>
+	</head>
+	<body>
+		<center><button class="login" onclick="window.location.href='/login'">Login!</button></center>
+
+	</body>
+    </div>
+</html>
+{% endblock %}
